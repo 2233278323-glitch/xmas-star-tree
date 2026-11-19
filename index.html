@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#04050c">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ctext y='26' font-size='26'%3E%F0%9F%8E%84%3C/text%3E%3C/svg%3E">
+<title>星光圣诞树 · 手势互动</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="stage">
+  <!-- 摄像头：原始帧藏在后台，模糊镜像画面自己画到 #bg 上 -->
+  <video id="cam" playsinline muted autoplay></video>
+  <canvas id="bg" class="bg"></canvas>
+  <div class="cam-veil"></div>
+
+  <!-- 背景花体字：Merry Christmas -->
+  <div class="watermark" aria-hidden="true">Merry Christmas</div>
+
+  <!-- 星光粒子层 -->
+  <canvas id="scene"></canvas>
+
+  <div class="vignette"></div>
+
+  <header class="hud">
+    <div class="brand">星光圣诞树<em>GESTURE CHRISTMAS</em></div>
+    <div class="status" id="status"><i></i><span>准备中…</span></div>
+  </header>
+
+  <div class="title-wrap">
+    <p class="subtitle">愿你掌心的星光，永不熄灭</p>
+  </div>
+
+  <div class="chips">
+    <div class="chip"><b>✊</b><span>握紧拳头 · 星光聚成圣诞树</span></div>
+    <div class="chip"><b>✋</b><span>张开手掌 · 星光散作漫天雪</span></div>
+  </div>
+
+  <button id="startBtn" class="start">
+    <span class="dot"></span>开启摄像头
+  </button>
+
+  <div class="toast" id="toast"></div>
+
+  <div class="banner" id="banner"></div>
+
+  <div class="dbg" id="dbgbox">
+    <canvas id="dbgCam" width="150" height="112"></canvas>
+    <pre id="dbgTxt"></pre>
+  </div>
+
+  <div class="hint" id="hint">
+    <b id="hintTitle">摄像头没打开</b>
+    <p id="hintBody"></p>
+    <p class="hint-sub">先用鼠标也能看：按住左键 = 星光散开，松开 = 聚合；键盘 F / O 同样有效。</p>
+  </div>
+</div>
+<script>
+// 出错时把信息写进标题，方便排查（不影响正常使用）
+addEventListener('error', (e) => { document.title = 'ERR: ' + (e.message || e.error); });
+addEventListener('unhandledrejection', (e) => {
+  document.title = 'REJ: ' + ((e.reason && (e.reason.message || e.reason)) || 'unknown');
+});
+</script>
+<script type="module" src="app.js?v=39"></script>
+</body>
+</html>
